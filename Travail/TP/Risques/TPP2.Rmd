@@ -149,7 +149,7 @@ list(k=K, P=Weisman.p[K], q=q)
 plot(1:2492,donnee$V1)
 ```
 
-### Pareto quantile plot de l'échantillon entier
+### Pareto quantile plot de l'?chantillon entier
 ```{r}
 install.packages("ReIns")
 ```
@@ -160,13 +160,13 @@ library(ReIns)
 ParetoQQ(donnee$V1)
 ```
 
-### Pareto quantile plot de l'échantillon des montants supérieurs à 1million
+### Pareto quantile plot de l'?chantillon des montants sup?rieurs ? 1million
 ```{r}
 V2=donnee$V1[which(donnee$V1>1)]
 ParetoQQ(V2)
 ```
 
-### Ajuster un modèle de Pareto généralisé
+### Ajuster un mod?le de Pareto g?n?ralis?
 ```{r}
 install.packages("evd")
 ```
@@ -174,7 +174,7 @@ install.packages("evd")
 ```{r}
 library(evd)
 ```
-#### via mrlplot : seuil à partir duquel on observe une relative linéarité
+#### via mrlplot : seuil ? partir duquel on observe une relative lin?arit?
 ```{r}
 mrlplot(donnee$V1)
 ```
@@ -189,7 +189,7 @@ mrlplot(donnee$V1, tlim=c(0,10))
 tcplot(donnee$V1,tlim=c(0,10))
 ```
 
-Pour avoir le nombre d'observations supérieures à 2
+Pour avoir le nombre d'observations sup?rieures ? 2
 ```{r}
 fitgpd=fpot(donnee$V1,2)
 fitgpd$nhigh
@@ -201,14 +201,14 @@ scale=tau_chapeau, shape=gamma_shapeau
 hill_plot=Hill(donnee$V1, plot=TRUE)
 ```
 
-On a une certaine stabilité vers 400-450 sur le hill plot. Pour avoir la valeur de gamma en ce point on fait comme suit:
+On a une certaine stabilit? vers 400-450 sur le hill plot. Pour avoir la valeur de gamma en ce point on fait comme suit:
 ```{r}
 hill_plot$gamma[450]
 ```
-gamma_chapeau est à peu près égal à 0.7.
-Avec fpot on trouvait 0.66. Cette estimation est inférieure à celle obtenue ave le hill plot.
+gamma_chapeau est ? peu pr?s ?gal ? 0.7.
+Avec fpot on trouvait 0.66. Cette estimation est inf?rieure ? celle obtenue ave le hill plot.
 
-### 3 estimations de la probabilité que le montant d'un sinistre incendie dépasse 55 millions de couronnes
+### 3 estimations de la probabilit? que le montant d'un sinistre incendie d?passe 55 millions de couronnes
 
 #### 1ere estimation 
 ```{r}
