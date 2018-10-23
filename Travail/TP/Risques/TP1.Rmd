@@ -1,0 +1,87 @@
+---
+title: "Lois de valeurs extremes généralisées"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+## I.Mise en service de la boite à outils "evd":
+```{r}
+install.packages("evd")
+```
+```{r}
+library(evd)
+```
+
+## Densités des lois de valeurs extremes: graphes illustratifs:
+
+### Reprendre la forme des lois GEV et discuter sur leur support: (fait sur feuille)
+
+### Représenter sur un même graphe les densités de Fréchet:
+```{r}
+
+mu=3
+sig=2
+gam1=0.2
+gam2=0.4
+gam3=0.6
+gam4=0.8
+gam5=2
+x=-5:30
+A1=dgev(x,mu,sig,gam1)
+A2=dgev(x,mu,sig,gam2)
+A3=dgev(x,mu,sig,gam3)
+A4=dgev(x,mu,sig,gam4)
+A5=dgev(x,mu,sig,gam5)
+plot(x,A1,xlab = "vecteur x" ,ylab="densité de Frechet",main="représentation de la densité de Frechet pour plusieurs gamma",col="blue",type="l",xlim =c(-5,15),ylim=c(0,0.3))
+lines(x,A2,col="red")
+lines(x,A3,col="green")
+lines(x,A4,col="yellow")
+lines(x,A5,col="purple")
+legend(12,0.3,c("0.2","0.4","0.6","0.8","2"),c("blue","red","green","yellow","purple"))     
+
+```
+
+## III. Domaines d'attraction et de convergence
+Vérifier graphiquement que le théorème de convergence de la loi des maxima est valide dans chacun des cas suivants:
+
+### a. Loi exponentielle standard::
+```{r}
+n1=100
+Y=(max(X)-b)/a
+a=1
+b=log(n)
+X=rexp(n1,1)
+f1=-exp(-X)*(-exp(-exp(-X)))
+plot(X,f1)
+for (n in 3:n1)
+  {
+  a=1
+  b=log(n)
+  X=rexp(n,1)
+  if (X>-log(n))
+  {f=exp(-X)*(exp(-X)/n)^(n-1)
+  lines(X,f)}
+}
+```
+
+```{r}
+n=5000
+X=rexp(5000)
+k=1:100
+ysamp=rep(0,100)
+mat=matrix(0,nrow = 100,ncol=50)
+for (i in 1:n){
+  mat[,i]=X[k]
+  k=k+100
+}
+for (i in 1:100){
+  ysamp[i]=max(mat[,i])
+}
+plot(density(ysamp))
+  
+```
+
+

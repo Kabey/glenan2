@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+\usepackage{vmargin,dsfont}
+\usepackage[latin1]{inputenc}
+\usepackage{graphics,color}
+\usepackage{graphicx}
+\usepackage{Sweave}
+
+
+\setpapersize[portrait]{A4}
+\setmarginsrb{2.3cm}{0.5cm}{2.3cm}{1.5cm}% left-top-right-bottom
+             {.5cm}{1.3cm}{0cm}{1.3cm} % headheigt-hskip-footheight-fskip
+%% Espace entre le bas du texte et les footnotes :
+\addtolength{\skip\footins}{3mm}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsbsy}
+\newtheorem{defi}{D\'efinition}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemme}{Lemme}
+\newtheorem{propdefi}{Proposition et d\'efinition}
+\newtheorem{theo}{Th\'eor\`eme}
+
+\newcommand{\un} {\mbox{ \rm 1\hspace{-0.3em}I}}
+\newcommand{\argmin}{\mbox{argmin}}
+\newcommand{\exo}{\noindent {\bf Exercice \theex. \stepcounter{ex}}}
+\newcommand{\exe}{\noindent {\bf Exemple \theexe. \stepcounter{exe}}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+
+\pagestyle{empty}
+\begin{document}
+\noindent{\bf Master 2 'Maths en Action'  \hfill Décembre 2017 \\
+Université Lyon 1
+}
+\vspace*{0.3cm}
+\begin{center}
+\textbf{\large Examen final \\
+Durée : 2 heures  \vspace{0.2cm} \\}
+{\bf Les calculatrices et les téléphones portables sont interdits. Tous les documents papiers sont autorisés. } %\\ Le barème indiqué ci-dessous est approximatif.}
+\end{center}
+
+\vspace*{1cm}
+
+
+\noindent{\bf Exercice 1.} \\
+L'objectif de cet exercice est d'obtenir une validation théorique des performances du critère $C_p$ dans un cadre simplifié. On considère pour cela les observations:
+\begin{equation}
+y_k = \theta_k + \sigma \xi_k, \quad k=1,\dots, n,
+\label{eq:modele}
+\end{equation}
+où $\theta = (\theta_1,\dots, \theta_n)'$ désigne le vecteur d'intérêt à estimer, $\sigma$ le niveau de bruit et les $\xi_k$ des variables i.i.d. gaussiennes centrées réduites. 
+\begin{enumerate}
+\item Ecrire le modèle (\ref{eq:modele}) sous forme matricielle. 
+\item On considère la famille de modèle croissante $\mathcal{M} = (\lbrace 1,\dots, m \rbrace )_{m=1\dots p}$. Par la suite, on identifie chaque modèle à sa valeur $m$. Montrer que 
+$$ \mathbb{E} \| X\hat \theta^{(m)} - X\theta \|^2 = \mathbb{E} \| \hat \theta^{(m)} - \theta \|^2 = \sum_{k=m+1}^n \theta_k^2 + \sigma^2m = - \sum_{k=1}^m \theta_k^2 + \sigma^2 m + \| \theta \|^2. $$
+\item Montrer que pour tout $k\in \lbrace 1,\dots, n \rbrace$, $y_k^2 - \sigma^2$ est un estimateur sans biais de $\theta_k^2$ et en déduire que le critère $C_p(m)$ peut se ré-écrire sous la forme 
+$$ C_p(m) = -\sum_{k=1}^m y_k^2 + 2 \sigma^2 m \quad \forall m\in \lbrace  1,\dots, n \rbrace.$$
+On pourra en particulier montrer que 
+$$ \mathbb{E}_\theta C_p(m) =  \mathbb{E} \| \hat \theta^{(m)} - \theta \|^2 - \| \theta \|^2 \quad \forall m \in \lbrace 1,\dots, m \rbrace.$$
+\item On pose par la suite
+$$ \hat m := \arg\min_{m\in \lbrace 1,\dots, n \rbrace} C_p(m)$$
+et on désigne par $\hat\theta_{(\hat m)}$ l'estimateur associé. Montrer que 
+$$  \mathbb{E} \| \hat \theta^{(\hat m)} - \theta \|^2 = \mathbb{E}_\theta \left[   \sum_{k=\hat m+1}^n\theta_k^2 + \sigma^2 \hat m \right] + \mathbb{E} \left[  \sigma^2 \sum_{k=1}^{\hat m } (\xi_k^2-1)  \right].$$
+\item Montrer que 
+$$  \mathbb{E}_\theta \left[   \sum_{k=\hat m+1}^n\theta_k^2 + \sigma^2 \hat m \right] = \| \theta \|^2 + \mathbb{E}_\theta[ C_p(\hat m) ] +  \mathbb{E} \left[  \sigma^2 \sum_{k=1}^{\hat m } (\xi_k^2-1)  \right] + 2\sigma \mathbb{E} \left[    \sum_{k=1}^{\hat m} \theta_k\xi_k \right].$$
+\item On admet pour la suite qu'il existe une constante $C_1$ telle que 
+$$  \mathbb{E} \left[  \sigma^2 \sum_{k=1}^{\hat m } (\xi_k^2-1)  \right] \leq C_1 \sigma^2 (\mathbb{E}[\hat m ] + \ln(1/\sigma) ) \quad \mathrm{et} \quad \sigma \mathbb{E} \left[    \sum_{k=1}^{\hat m} \theta_k\xi_k \right]  \leq C_1 (\| \theta \|^2 + \sigma^2 \mathbb{E}[\hat m]).$$
+Déduire de tous les résultats précédents qu'il existe une constante positive $C_2$ telle que, pour tout $m\in \lbrace 1,\dots, n \rbrace$,
+$$  \mathbb{E} \| \hat \theta^{(\hat m)} - \theta \|^2  \leq C_2 \left[ \| \theta \|^2 + \mathbb{E}_\theta [ C_p(m) ] + \epsilon^2 \ln(1/\epsilon) \right],$$
+puis que 
+$$ \mathbb{E} \| \hat \theta^{(\hat m)} - \theta \|^2 \leq C_2 \inf_{m=1\dots n} \mathbb{E}_\theta \| \hat\theta^{(m)} - \theta \|^2 +  C_2\epsilon^2 \ln(1/\epsilon).$$
+Conclure.
+\end{enumerate}
+
+
+
+
+\vspace{1cm}
+
+
+\noindent{\bf Exercice 2.} \\
+On s'intéresse dans cet exercice au lien entre mortalité et tabagisme. Les données utilisées sont rassemblées ci-dessous
+\footnotesize
+\begin{verbatim}
+     age         smoke   pop dead
+1  40-44            no   656   18
+2  45-59            no   359   22
+3  50-54            no   249   19
+4  55-59            no   632   55
+5  60-64            no  1067  117
+6  65-69            no   897  170
+7  70-74            no   668  179
+8  75-79            no   361  120
+9    80+            no   274  120
+10 40-44 cigarPipeOnly   145    2
+11 45-59 cigarPipeOnly   104    4
+12 50-54 cigarPipeOnly    98    3
+13 55-59 cigarPipeOnly   372   38
+14 60-64 cigarPipeOnly   846  113
+15 65-69 cigarPipeOnly   949  173
+16 70-74 cigarPipeOnly   824  212
+17 75-79 cigarPipeOnly   667  243
+18   80+ cigarPipeOnly   537  253
+19 40-44 cigarrettePlus 4531  149
+20 45-59 cigarrettePlus 3030  169
+21 50-54 cigarrettePlus 2267  193
+22 55-59 cigarrettePlus 4682  576
+23 60-64 cigarrettePlus 6052 1001
+24 65-69 cigarrettePlus 3880  901
+25 70-74 cigarrettePlus 2033  613
+26 75-79 cigarrettePlus  871  337
+27   80+ cigarrettePlus  345  189
+28 40-44 cigarretteOnly 3410  124
+29 45-59 cigarretteOnly 2239  140
+30 50-54 cigarretteOnly 1851  187
+31 55-59 cigarretteOnly 3270  514
+32 60-64 cigarretteOnly 3791  778
+33 65-69 cigarretteOnly 2421  689
+34 70-74 cigarretteOnly 1195  432
+35 75-79 cigarretteOnly  436  214
+36   80+ cigarretteOnly  113   63
+\end{verbatim}
+\normalsize
+
+Construire une analyse complète de ces données en vous aidant des sorties R proposées ci-dessous. En particulier, on prendra soins de
+\begin{itemize}
+\item[-] détailler la construction du (des) modèle(s) considéré(s),
+\item[-] expliquer succinctement la mise en place des tests utilisés successivement (stat de test, règle de décision, ...),
+\item[-] commenter et \textbf{interpréter} les résultats.
+\end{itemize}
+
+\begin{Schunk}
+\begin{Sinput}
+#-----------------#
+#  Partie I       #
+#-----------------#
+
+> smoking <- read.table("smoking.dat",header=TRUE,nrows=36)
+> hist(smoking[,"dead"])
+
+> glm1 <- glm(dead~smoke,family=poisson,data=smoking)
+> summary(glm1)
+
+> plot(smoking[,"pop"],smoking[,"dead"])
+> summary(lm(dead~pop,data=smoking))
+
+> smoking[,5] <- smoking[,4]/smoking[,3]
+> glm3 <- glm(smoking[,5]~smoking[,2],family=binomial,weights=smoking[,3])
+> summary(glm3)
+
+
+\end{Sinput}
+
+
+\end{Schunk}
+
+\end{document}
+
