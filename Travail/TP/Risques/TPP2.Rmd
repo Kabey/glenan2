@@ -199,15 +199,21 @@ fitgpd$estimate
 
 tau=as.numeric(fitgpd$estimate[1])
 gamma=as.numeric(fitgpd$estimate[2])
+gamma
 test=(1+gamma*55/tau)^(-1/gamma)
 test
 
 pgpd=pgpd(55,loc=2,shape=gamma,scale=tau,lower.tail = FALSE)
 pgpd
 fitgpd$pat #P(X>2)
-fitgpd$pat*test
-fitgpd$pat*pgpd #--> 3.08 * 10^-3
-Weissman.p(donnee$V1,gamma,55)$P[1]
+p1=fitgpd$pat*test
+p2=fitgpd$pat*pgpd #--> 3.08 * 10^-3
+p3=Weissman.p(donnee$V1,gamma,55)$P[1]
+
+qgpd=qgpd((1-0.999)/fitgpd$pat,loc=2,shape=gamma,scale=tau,lower.tail=FALSE)+2
+qgpd
+qw=Weissman.q(donnee$V1,gamma,1-0.999)$Q +2
+qw
 
 
 ```
