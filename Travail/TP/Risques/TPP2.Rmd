@@ -180,7 +180,7 @@ mrlplot(donnee$V1)
 ```
 Pour voir ce qui se passe entre 0 et 10
 ```{r}
-mrlplot(donnee$V1, tlim=c(0,10))
+mrlplot(donnee$V1, tlim=c(0,6))
 ```
 
 

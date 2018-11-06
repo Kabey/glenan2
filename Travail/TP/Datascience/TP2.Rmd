@@ -1,0 +1,86 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+TP2
+
+```{r}
+
+```
+
+Coupe du monde
+
+Installation préalable
+
+Lecture des données
+
+```{r}
+library(jsonlite)
+#library(tidyverse)
+
+DATA1 = read.csv("data/matches_19302010.csv", header=T, sep = ",")
+DATA2 = read.csv("data/WorldCupMatches2014.csv", header = T, sep = ";")
+DATA3 = fromJSON(txt = "data/data_2018.json")
+
+```
+
+```{r}
+setID = function(donnees)
+{
+  for (i in 1:length(donnees))
+  {
+    donnees[i] = i
+  }
+  return(donnees)
+}
+```
+
+```{r}
+getTeam = function(id)
+{
+  return(DATA3$teams$name[id])
+}
+```
+
+```{r}
+getCity = function(id)
+{
+  return(DATA3$stadiums$city[id])
+}
+```
+
+```{r}
+DATA3
+
+```
+
+```{r}
+R16 = mutate(DATA3$knockout$round_16$matches, round = "huitieme_final")
+head(R16)
+```
+
+
+
+
+
+
+
+
+
+```{r}
+#install.packages("mlbench")
+library(mlbench)
+```
+
+```{r}
+#install.packages("ggplot2")
+library(ggplot2)
+```
+
+```{r}
+data(BostonHousing)
+str(BostonHousing)
+```
+
+

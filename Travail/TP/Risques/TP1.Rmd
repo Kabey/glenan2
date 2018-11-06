@@ -1,5 +1,5 @@
 ---
-title: "Lois de valeurs extremes généralisées"
+title: "Lois de valeurs extremes g?n?ralis?es"
 output: html_notebook
 ---
 
@@ -7,7 +7,7 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
 
-## I.Mise en service de la boite à outils "evd":
+## I.Mise en service de la boite ? outils "evd":
 ```{r}
 install.packages("evd")
 ```
@@ -15,11 +15,11 @@ install.packages("evd")
 library(evd)
 ```
 
-## Densités des lois de valeurs extremes: graphes illustratifs:
+## Densit?s des lois de valeurs extremes: graphes illustratifs:
 
 ### Reprendre la forme des lois GEV et discuter sur leur support: (fait sur feuille)
 
-### Représenter sur un même graphe les densités de Fréchet:
+### Repr?senter sur un m?me graphe les densit?s de Fr?chet:
 ```{r}
 
 mu=3
@@ -35,7 +35,7 @@ A2=dgev(x,mu,sig,gam2)
 A3=dgev(x,mu,sig,gam3)
 A4=dgev(x,mu,sig,gam4)
 A5=dgev(x,mu,sig,gam5)
-plot(x,A1,xlab = "vecteur x" ,ylab="densité de Frechet",main="représentation de la densité de Frechet pour plusieurs gamma",col="blue",type="l",xlim =c(-5,15),ylim=c(0,0.3))
+plot(x,A1,xlab = "vecteur x" ,ylab="densit? de Frechet",main="repr?sentation de la densit? de Frechet pour plusieurs gamma",col="blue",type="l",xlim =c(-5,15),ylim=c(0,0.3))
 lines(x,A2,col="red")
 lines(x,A3,col="green")
 lines(x,A4,col="yellow")
@@ -45,15 +45,16 @@ legend(12,0.3,c("0.2","0.4","0.6","0.8","2"),c("blue","red","green","yellow","pu
 ```
 
 ## III. Domaines d'attraction et de convergence
-Vérifier graphiquement que le théorème de convergence de la loi des maxima est valide dans chacun des cas suivants:
+V?rifier graphiquement que le th?or?me de convergence de la loi des maxima est valide dans chacun des cas suivants:
 
 ### a. Loi exponentielle standard::
 ```{r}
 n1=100
-Y=(max(X)-b)/a
+
 a=1
 b=log(n)
 X=rexp(n1,1)
+Y=(max(X)-b)/a
 f1=-exp(-X)*(-exp(-exp(-X)))
 plot(X,f1)
 for (n in 3:n1)
