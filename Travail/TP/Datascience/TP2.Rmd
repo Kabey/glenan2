@@ -19,8 +19,8 @@ Lecture des données
 library(jsonlite)
 #library(tidyverse)
 
-DATA1 = read.csv("data/matches_19302010.csv", header=T, sep = ",")
-DATA2 = read.csv("data/WorldCupMatches2014.csv", header = T, sep = ";")
+DATA1 = read.csv("data/matches_19302010.csv", header=TRUE, sep = ",")
+DATA2 = read.csv("data/WorldCupMatches2014.csv", header = TRUE, sep = ";")
 DATA3 = fromJSON(txt = "data/data_2018.json")
 
 ```
@@ -52,7 +52,6 @@ getCity = function(id)
 
 ```{r}
 DATA3
-
 ```
 
 ```{r}
@@ -68,19 +67,4 @@ head(R16)
 
 
 
-```{r}
-#install.packages("mlbench")
-library(mlbench)
-```
-
-```{r}
-#install.packages("ggplot2")
-library(ggplot2)
-```
-
-```{r}
-data(BostonHousing)
-str(BostonHousing)
-```
-
-
+`

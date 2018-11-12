@@ -1,0 +1,89 @@
+---
+title: "TP NOTE QUITTARD DYLAN"
+output:
+  html_notebook: default
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+
+```{r}
+library(evd)
+#library(tseries)
+data=ice.river
+prec=data[,3]
+annee=as.array.default(data[,0])
+
+```
+
+FIGURE 1:
+```{r}
+plot(1:1096,prec)
+```
+
+2) On se propose de prendre des max pour pouvoir utiliser un modèle de GEV. 
+```{r}
+prec2=0
+paquet=0
+for (i in 1:1096)
+{
+  if(i%/%30==0)
+  {
+    paquet=max(prec[i:i+30])
+    prec2=cbind(prec2,paquet)
+  }
+}
+
+```
+
+3) On va supposer que les données sont bien indépendantes. Il semble raisonnable que la précipitation étant recueillie de manière journalière, même si entre le jour j peut influer sur le lendemain, en prenant des max sur 1 mois, on aura bien l'indépendance.
+```{r}
+prec2=as.numeric(prec2)
+prec2
+```
+
+4) On a fait une estimation par maxima de loi.
+```{r}
+fit=fgev(prec2)
+fit$estimate
+```
+
+(j'avais fait de cette manière au début, je pense qu'on ne peut pas car on a une GEV et pas une GPD)
+```{r}
+mrlplot(prec2,tlim=c(0,10))
+tcplot(prec2,tlim=c(0,0.3))
+fit1=fpot(prec2,0.9)
+fit2=fpot(prec2,1.9)
+tau1=as.numeric(fit1$estimate[1])
+gamma1=as.numeric(fit1$estimate[2])
+tau2=as.numeric(fit2$estimate[1])
+gamma2=as.numeric(fit2$estimate[2])
+tau1
+gamma1
+tau2
+gamma2
+```
+Ici j'utilisais mrlplot et tcplot pour trouver le seuil mais en fait c'est dans la suite qu'il faut l'utiliser.
+
+
+5) Les estimations précédentes proviennent de paquets fait aléatoirement, on a moins de données.
+
+```{r}
+fit$std.err
+```
+
+6) La valeur maximale atteinte par la log vraisemblance est:
+```{r}
+fit$deviance
+```
+
+7)
+
+
+8) Modèle de dépassement de seuil
+```{r}
+
+```
+
+
